@@ -1,0 +1,432 @@
+
+
+mysql  Ver 8.0.37 for Win64 on x86_64 (MySQL Community Server - GPL)
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.01 sec)
+
+mysql> create database first;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| first              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> create database second;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| first              |
+| information_schema |
+| mysql              |
+| performance_schema |
+| second             |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use first;
+Database changed
+
+mysql> create table teachers (id int, name varchar(30),subjects varchar(15),tell int);
+Query OK, 0 rows affected (0.14 sec)
+
+
+mysql> show tables;
++-----------------+
+| Tables_in_first |
++-----------------+
+| teachers        |
++-----------------+
+1 row in set (0.02 sec)
+
+
+mysql> select * from  teachers;
+Empty set (0.00 sec)
+
+
+mysql> insert into teachers values(90, "cawaale guuleed", "English", 616090997);
+Query OK, 1 row affected (0.02 sec)
+
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
++------+-----------------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> insert into teachers values(150, "jaamac diiriye", "Somali", 770175567);
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> insert into teachers values(250, "maryamo guhaad", "xisaab", 770167658);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers where id<100;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
++------+-----------------+----------+-----------+
+1 row in set (0.01 sec)
+
+
+mysql> select * from  teachers where id>200;
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  250 | maryamo guhaad | xisaab   | 770167658 |
++------+----------------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from  teachers where id=150;
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
++------+----------------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from  teachers where id=150 and name="jaamac diiriye";
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
++------+----------------+----------+-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select * from  teachers where id=150 or subjects="xisaab";
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
+|  250 | maryamo guhaad | xisaab   | 770167658 |
++------+----------------+----------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select subjects from  teachers ;
++----------+
+| subjects |
++----------+
+| English  |
+| Somali   |
+| xisaab   |
++----------+
+3 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+mysql> insert into teachers values(110, "nasteexo cumar", "Islamic",616090999);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into teachers values(110, "xabiibo cilmi", "English", 616090997);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616090999 |
+|  110 | xabiibo cilmi   | English  | 616090997 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> update teachers set tell=616909097 where id=110;
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  110 | xabiibo cilmi   | English  | 616909097 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> update teachers set tell=616909097 where name="xabiibo cilmi";
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  110 | xabiibo cilmi   | English  | 616909097 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> update teachers set tell=616909097 and id=190 where name="xabiibo cilmi";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  110 | xabiibo cilmi   | English  |         0 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> update teachers set tell=616909097 where name="xabiibo cilmi";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  110 | xabiibo cilmi   | English  | 616909097 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+
+mysql> update teachers set id=190 where name="xabiibo cilmi";
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  190 | xabiibo cilmi   | English  | 616909097 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+
+
+mysql> update teachers set subjects="Arabic" where name="xabiibo cilmi";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
++------+-----------------+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into teachers values(210, "Axmed cali", "Geo", 618000098);
+Query OK, 1 row affected (0.01 sec)
+
+
+
+mysql> insert into teachers values(120, "Zahro Maxamed", "History", 617000098);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from  teachers;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
+|  210 | Axmed cali      | Geo      | 618000098 |
+|  120 | Zahro Maxamed   | History  | 617000098 |
++------+-----------------+----------+-----------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers where id=150 or subjects="xisaab";
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
+|  250 | maryamo guhaad | xisaab   | 770167658 |
++------+----------------+----------+-----------+
+2 rows in set (0.00 sec)
+
+
+
+mysql> select * from  teachers where id=150 or subjects="geo";
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
+|  210 | Axmed cali     | Geo      | 618000098 |
++------+----------------+----------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers where id=150 or subjects="geo" order by name;
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  210 | Axmed cali     | Geo      | 618000098 |
+|  150 | jaamac diiriye | Somali   | 770175567 |
++------+----------------+----------+-----------+
+2 rows in set (0.01 sec)
+
+
+mysql> select * from  teachers where id=150 or subjects="geo" order by id, name;
++------+----------------+----------+-----------+
+| id   | name           | subjects | tell      |
++------+----------------+----------+-----------+
+|  150 | jaamac diiriye | Somali   | 770175567 |
+|  210 | Axmed cali     | Geo      | 618000098 |
++------+----------------+----------+-----------+
+2 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers order by id, name;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  120 | Zahro Maxamed   | History  | 617000098 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
+|  210 | Axmed cali      | Geo      | 618000098 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
++------+-----------------+----------+-----------+
+7 rows in set (0.00 sec)
+
+
+mysql> select * from  teachers order by name, id;
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|  210 | Axmed cali      | Geo      | 618000098 |
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  250 | maryamo guhaad  | xisaab   | 770167658 |
+|  110 | nasteexo cumar  | Islamic  | 616909097 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
+|  120 | Zahro Maxamed   | History  | 617000098 |
++------+-----------------+----------+-----------+
+7 rows in set (0.00 sec)
+
+
+
+mysql> select * from  teachers where subjects="English" or subjects="Arabic" or subjects="Somali";
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
+
+
+
+mysql> select * from  teachers where subjects="English" or subjects="Arabic" or subjects="Somali";
++------+-----------------+----------+-----------+
+| id   | name            | subjects | tell      |
++------+-----------------+----------+-----------+
+|   90 | cawaale guuleed | English  | 616090997 |
+|  150 | jaamac diiriye  | Somali   | 770175567 |
+|  190 | xabiibo cilmi   | Arabic   | 616909097 |
++------+-----------------+----------+-----------+
+3 rows in set (0.00 sec)
