@@ -1,0 +1,179 @@
+
+
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h2>Welcome to the Dashboard, {{ user_role }}</h2>
+
+    {% if user_role == 'Admin' %}
+        <!-- Admin specific content here -->
+        <p>This is the Admin section</p>
+    {% elif user_role == 'Teacher' %}
+        <!-- Teacher specific content here -->
+        <p>This is the Teacher section</p>
+    {% elif user_role == 'Student' %}
+        <!-- Student specific content here -->
+        
+        <p>This is the Student section</p>
+    {% endif %}
+
+
+
+
+    <div class="container-fluid mt-4">
+        <!-- Card Section -->
+        <div class="row">
+            {% if user_role == 'Admin' %}
+                <!-- Admin sees all cards -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-infor">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h5 class="card-title">Sections</h5>
+                            <p class="card-text">1200</p>
+                            <a href="sections">view</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-primary">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h5 class="card-title">Classes</h5>
+                            <p class="card-text">300</p>
+                            <a href="classes">view</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-success">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h5 class="card-title">Subjects</h5>
+                            <p class="card-text">300</p>
+                            <a href="subject">view</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-infor">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <h5 class="card-title">Students</h5>
+                            <p class="card-text">300</p>
+                            <a href="student">view</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-primary">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <h5 class="card-title">Exams</h5>
+                            <p class="card-text">300</p>
+                            <a href="exams">view</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 ">
+                    <div class="card card-custom bg-success">
+                        <div class="card-body">
+                            <div class="card-icon">
+                                <i class="fas fa-chalkboard"></i>
+                            </div>
+                            <h5 class="card-title">Teachers</h5>
+                            <p class="card-text">200</p>
+                            <a href="teacher">view</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if user_role == 'Admin' or user_role == 'Teacher' %}
+                <!-- Admin and Teacher see these cards -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-infor">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">New_Attendance </h5>
+                            
+                            <a href="attendance_new">view</a>
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-secondary">
+                        <div class="card-body">
+                           
+                            <h5 class="card-title">Add Exam Result</h5>
+                            
+                            <a href="add_result">view</a>
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-pencil"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            {% endif %}
+
+            {% if user_role == 'Student' or user_role == 'Teacher'  %}
+                <!-- Only students see this -->
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-primary">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">Exam_Result</h5>
+                           &nbsp; 
+                            <a href="exam_results_view">view</a>
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-marker"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card card-custom bg-success">
+                        <div class="card-body">
+                            
+                            <h5 class="card-title">Attendance</h5>
+                            &nbsp;  &nbsp; &nbsp;
+                            <a href="view_attendance">view</a>
+                            &nbsp;  &nbsp; &nbsp;
+
+                            <div class="card-icon">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
