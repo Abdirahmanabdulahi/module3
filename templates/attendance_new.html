@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Management{% endblock %}
+
+{% block content %}  
+
+    <div class="row">
+        <a href="#"><strong><span class="ti-crown"></span> Attendance Section <i class="fa fa-male" aria-hidden="true"></i></strong></a>
+        <hr>  
+        <div class="float-right mb-2 col-md-2">
+            <!-- Button to trigger the modal -->
+            <button type="button" id="addTeacher" class="btn btn-info" title="Add  Attendance" data-toggle="modal" data-target="#teacherModal">
+                <i class="fa fa-plus-square" aria-hidden="true"></i> 
+            </button>
+        </div>
+    </div>
+    
+    <br><br>
+
+    {% if students %}
+    <form action="{{ url_for('saveAttendance') }}" method="POST">
+        <input type="hidden" name="classid" value="{{ classId }}">
+        <input type="hidden" name="sectionid" value="{{ sectionId }}">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Reg No</th>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Attendance</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.admission_no }}</td>
+                    <td>{{ student.roll_no }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>
+                        <label>
+                            <input type="radio" name="attendance_{{ student.id }}" value="Present" required> Present
+                        </label>
+                        <label>
+                            <input type="radio" name="attendance_{{ student.id }}" value="Absent" required> Absent
+                        </label>
+                        <label>
+                            <input type="radio" name="attendance_{{ student.id }}" value="Late" required> Late
+                        </label>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="box-footer">
+            <button type="submit" class="btn btn-success">Save Attendance</button>
+        </div>
+    </form>
+    {% else %}
+    <p>No students found for the selected class and section, Please Click Attendance Section.</p>
+    {% endif %}
+    <hr> 
+
+    <!-- Modal for adding/editing teachers -->
+    <div id="teacherModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ url_for('attendance_new') }}" method="POST">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Select Class and Section</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="classid">Class</label>
+                                    <select id="classid" name="classid" class="form-control" required>
+                                        <option value="">Select Class</option>
+                                        {% for class in classes %}
+                                        <option value="{{ class.id }}">{{ class.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="sectionid">Section</label>
+                                    <select id="sectionid" name="sectionid" class="form-control" required>
+                                        <option value="">Select Section</option>
+                                        {% for section in sections %}
+                                        <option value="{{ section.section_id }}">{{ section.section }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Get Students</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
