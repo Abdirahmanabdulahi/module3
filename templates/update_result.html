@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Student Result{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-edit"></i> Update Student Result</h3>
+            </div>
+            <form id="form1" action="{{ url_for('update_result', id=result['id']) }}" method="post">
+                
+                <div class="box-body">                        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="student_id">Student ID</label><small class="req"> *</small>
+                                <select id="student_id" name="student_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for student in students %}
+                                        <option value="{{ student['id'] }}" {% if student['id'] == result['student_id'] %} selected {% endif %}>
+                                            {{ student['name'] }} (ID: {{ student['id'] }})
+                                        </option>                
+                                    {% endfor %}                                                
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="subject_id">Subject Name</label><small class="req"> *</small>
+                                <select name="subject_id" id="subject_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for subject in subjects %}
+                                        <option value="{{ subject['subject_id'] }}" {% if subject['subject_id'] == result['subject_id'] %} selected {% endif %}>
+                                            {{ subject['subject'] }}
+                                        </option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exam_id">Exam Name</label><small class="req"> *</small> 
+                                <select name="exam_id" id="exam_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for exam in exams %}
+                                        <option value="{{ exam['id'] }}" {% if exam['id'] == result['exam_id'] %} selected {% endif %}>
+                                            {{ exam['exam_name'] }}
+                                        </option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="classid" class="control-label">Class*</label>    
+                                <select name="classid" id="classid" class="form-control" required>
+                                    <option value="">--Select--</option>
+                                    {% for class in classes %}
+                                        <option value="{{ class['id'] }}" {% if class['id'] == result['class_id'] %} selected {% endif %}>
+                                            {{ class['name'] }}
+                                        </option>        
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sectionid" class="control-label">Section*</label>    
+                                <select name="sectionid" id="sectionid" class="form-control" required>
+                                    <option value="">Select Section</option>
+                                    {% for section in sections %}
+                                        <option value="{{ section['section_id'] }}" {% if section['section_id'] == result['section_id'] %} selected {% endif %}>
+                                            {{ section['section'] }}
+                                        </option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="marks">Marks</label><small class="req"> *</small>
+                                <input type="number" class="form-control" id="marks" name="marks" step="0.01" value="{{ result['marks'] }}" required>
+                            </div>
+                        </div>                                         
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Update Result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
