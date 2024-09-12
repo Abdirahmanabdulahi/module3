@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Student Result{% endblock %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title"><i class="fa fa-plus"></i> Add Student Result</h3>
+            </div>
+            <form id="form1" action="{{ url_for('add_result') }}" method="post">
+                <div class="box-body">                        
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="student_id">Student ID</label><small class="req"> *</small>
+                                <select id="student_id" name="student_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for student in students %}
+                                        <option value="{{ student['id'] }}" 
+                                                data-class-id="{{ student['class_id'] }}" 
+                                                data-section-id="{{ student['section_id'] }}">
+                                            {{ student['name'] }} (ID: {{ student['id'] }})
+                                        </option>                
+                                    {% endfor %}                                                
+                                </select>
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="subject_id">Subject Name</label><small class="req"> *</small>
+                                <select name="subject_id" id="subject_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for subject in subjects %}
+                                        <option value="{{ subject['subject_id'] }}">{{ subject['subject'] }}</option>    
+                                    {% endfor %}
+                                </select>
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exam_id">Exam Name</label><small class="req"> *</small> 
+                                <select name="exam_id" id="exam_id" class="form-control" required>
+                                    <option value="">Select</option>
+                                    {% for exam in exams %}
+                                        <option value="{{ exam['id'] }}">{{ exam['exam_name'] }}</option>    
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="classid" class="control-label">Class*</label>    
+                                <select name="classid" id="classid" class="form-control" required>
+                                    <option value="">--Select--</option>
+                                    {% for class in classes %}
+                                        <option value="{{ class['id'] }}">{{ class['name'] }}</option>        
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sectionid" class="control-label">Sections*</label>    
+                                <select name="sectionid" id="sectionid" class="form-control" required>
+                                    <option value="">Select Section</option>
+                                    {% for section in sections %}
+                                        <option value="{{ section['section_id'] }}">{{ section['section'] }}</option>    
+                                    {% endfor %}     
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="marks">Marks</label><small class="req"> *</small>
+                                <input type="number" class="form-control" id="marks" name="marks" step="0.01" required>
+                                <span class="text-danger"></span>
+                            </div>
+                        </div>                                         
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-save"></i> Save Result</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
