@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Attendance</title>
+</head>
+<body>
+    <h1>Edit Attendance</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+
+    <form method="POST">
+        <label for="student_id">Student:</label>
+        <select name="student_id" id="student_id" required>
+            {% for student in students %}
+            <option value="{{ student.id }}" {% if student.id == attendance_record.student_id %} selected {% endif %}>
+                {{ student.name }}
+            </option>
+            {% endfor %}
+        </select><br>
+
+        <label for="attendance_date">Date:</label>
+        <input type="date" name="attendance_date" value="{{ attendance_record.attendance_date }}" required><br>
+
+        <label for="status">Status:</label>
+        <select name="status" id="status" required>
+            <option value="Present" {% if attendance_record.status == 'Present' %} selected {% endif %}>Present</option>
+            <option value="Absent" {% if attendance_record.status == 'Absent' %} selected {% endif %}>Absent</option>
+        </select><br>
+
+        <input type="submit" value="Update attendance_record">
+        <button type="submit" class="btn btn-info" name="save" id="save" data-dismiss="modal"><i title=" Student attendance Update" class="fa fa-pencil-square" aria-hidden="true"></i></button>
+        <button type="submit" class="btn btn-danger" data-dismiss="modal"><i title="Close This Form" class="fa fa-window-close" aria-hidden="true"></i></button>
+    </form>
+</body>
+</html>
