@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Section Management{% endblock %}
+
+{% block content %}  	
+			<div class="row">
+				<a href="#"><strong><span class="ti-crown"></span> Edit Subject <i class="fa fa-book " aria-hidden="true"></i></strong></a>
+				<hr>
+				{% for subject in subjects %}
+				<form method="post" id="subjectForm" action="{{ url_for('save_subject')}}">				
+						<div class="form-group">
+							<label for="teacher" class="control-label">Subject*</label>
+							<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject Name" value="{{subject.subject}}" required>					
+						</div>	
+						<div class="form-group">
+							<label for="s_type" class="control-label">Subject Type</label><br>							
+							<label class="radio-inline">
+								<input type="radio" name="s_type" id="theory" value="Theory" required>Theory
+							</label>;
+							<label class="radio-inline">
+								<input type="radio" name="s_type" id="practical" value="Practical" required>Practical
+							</label>							
+						</div>	
+						<div class="form-group">
+							<label for="code" class="control-label">Code*</label>
+							<input type="text" class="form-control" id="code" name="code" placeholder="code..." value="{{subject.code}}" required>					
+						</div>
+							
+						<div class="modal-footer">
+							<input type="hidden" name="subjectid" id="subjectid" value="{{subject.subject_id}}" />
+							<input type="hidden" name="action" id="action" value="updateSubject" />
+							<button type="submit" class="btn btn-info" name="save" id="save" data-dismiss="modal"><i title="Update Subject" class="fa fa-pencil-square" aria-hidden="true"></i></button>
+                            <button type="submit" class="btn btn-danger" data-dismiss="modal"><i title="Close This Form" class="fa fa-window-close" aria-hidden="true"></i></button>
+						</div>
+					
+					</form>	
+					{% endfor %}						
+				</div>	
+			
+				
+				
+				{% endblock %}
