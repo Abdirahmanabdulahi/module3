@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Class Management{% endblock %}
+
+{% block content %}   	
+<div class="row">
+    <a href="#"><strong><span class="ti-crown"></span> Edit Class <i class="fa fa-university" aria-hidden="true"></i></strong></a>
+    <hr>
+    {% for class in classes %}
+    <form method="post" id="classForm" action="{{ url_for('save_class') }}">
+        <!-- Pre-fill class name -->
+        <div class="form-group">
+            <label for="cname" class="control-label">Class Name*</label>
+            <input type="text" class="form-control" id="cname" name="cname" placeholder="Class Name" value="{{ class.name }}" required>
+        </div>
+
+        <!-- Pre-fill section selection -->
+        <div class="form-group">
+            <label for="sectionid" class="control-label">Sections*</label>
+            <select name="sectionid" id="sectionid" class="form-control" required>
+                <option value="">Select Section</option>
+                {% for section in sections %}
+                <option value="{{ section.section_id }}" {% if section.section_id == class.section_id %} selected {% endif %}>
+                    {{ section.section }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Pre-fill teacher selection -->
+        <div class="form-group">
+            <label for="teacherid" class="control-label">Assign Class Teacher*</label>
+            <select name="teacherid" id="teacherid" class="form-control" required>
+                <option value="">--Select--</option>
+                {% for teacher in teachers %}
+                <option value="{{ teacher.teacher_id }}" {% if teacher.teacher_id == class.teacher_id %} selected {% endif %}>
+                    {{ teacher.teacher }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Submit form for update -->
+        <div class="modal-footer">
+            <input type="hidden" name="classid" id="classid" value="{{ class.id }}">
+            <input type="hidden" name="action" id="action" value="updateClass">
+            <button type="submit" class="btn btn-info" name="save" id="save">
+                <i title="Update Class" class="fa fa-pencil-square" aria-hidden="true"></i> Update
+            </button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">
+                <i title="Close This Form" class="fa fa-window-close" aria-hidden="true"></i> Close
+            </button>
+        </div>
+    </form>
+    {% endfor %}
+</div>
+{% endblock %}
