@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Management{% endblock %}
+
+{% block content %}  
+     
+        <div class="row">
+            <a href="#"><strong><span class="ti-crown"></span> Teachers Section <i class="fa fa-male" aria-hidden="true"></i></strong></a>
+            <hr>  
+            <div class="float-right mb-2 col-md-2">
+                <!-- Button to trigger the modal -->
+                <button type="button" id="addTeacher" class="btn btn-info" title="Add teacher" data-toggle="modal" data-target="#teacherModal">
+                    <span class="glyphicon glyphicon-plus"></span> <i title="Add Teacher" class="fa fa-plus-square" aria-hidden="true"></i>  
+                </button>
+            </div>
+            <br><br>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Specialization</th>               
+                        <th>action</th>
+                                     
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td>{{ teacher.teacher_id }}</td>
+                        <td>{{ teacher.teacher }}</td>
+                        <td>{{ teacher.subject }}</td>                     
+                        <td><a href="{{ url_for('edit_teacher', teacher_id=teacher.teacher_id) }}" id="{{ teacher.teacher_id }}" class="btn btn-primary update"><i title="Update Teacher Infor..." class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                        <a href="{{ url_for('delete_teacher', teacher_id=teacher.teacher_id) }}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this records?')"><i title="Delete Teacher infor" class="fa fa-trash" aria-hidden="true"></i></a></td>
+                    </tr> 
+                    {% endfor %}    
+                </tbody>
+            </table>         
+            <hr> 
+        </div>
+    
+
+<!-- Modal for adding/editing teachers -->
+<div id="teacherModal" class="modal fade">
+    <div class="modal-dialog">
+        <form method="post" id="teacherForm" action="{{ url_for('save_teacher') }}">
+            <div class="modal-content">
+                <div class="modal-header">                       
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Edit Teacher</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">                  
+                    <div class="form-group">                           
+                        <label for="teacher_name" class="control-label">Teacher Name</label>                       
+                        <input type="text" name="teacher_name" id="teacher_name" autocomplete="off" class="form-control" placeholder="Teacher name" required/>                                        
+                    </div>                      
+                    <div class="form-group">
+                        <label for="specialization" class="control-label">Specialization</label>               
+                        <select class="form-control" id="specialization" name="specialization" required>
+                            <option value="">--Select--</option>
+                            {% for subject in subjects %}
+                                <option value="{{ subject.subject_id }}">{{ subject.subject }}</option>     
+                            {% endfor %}                               
+                        </select>                           
+                    </div>                                              
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="teacherid" id="teacherid" />                       
+                    <input type="hidden" name="action" id="action" value="" />
+                    <button type="submit" class="btn btn-info" name="save" id="save" value="save"><i title="save Data" class="fa fa-cloud" aria-hidden="true"></i> Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i title="close this form" class="fa fa-window-close" aria-hidden="true"></i> Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
