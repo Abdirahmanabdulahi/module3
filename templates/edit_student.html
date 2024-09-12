@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Student Management{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <a href="#"><strong><span class="ti-crown"></span> Edit Student <i class="fa fa-graduation-cap" aria-hidden="true"></i></strong></a>
+        <hr>
+        {% for student in students %}
+        <form method="post" id="studentForm" enctype="multipart/form-data" action="{{ url_for('edit_student', student_id=student.id) }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-edit"></i> Edit Student</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="registerNo" class="control-label">STUDENT ID</label>							
+                        <input type="number" class="form-control" id="studentid" name="studentid" value="{{student.id}}" readonly>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="registerNo" class="control-label">Admission Number</label>
+                        <input type="number" class="form-control" id="registerNo" name="registerNo" value="{{ student.admission_no }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rollNo" class="control-label">Roll Number</label>
+                        <input type="number" class="form-control" id="rollNo" name="rollNo" value="{{ student.roll_no }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="classid" class="control-label">Class*</label>
+                        <select name="classid" id="classid" class="form-control" required>
+                            <option value="">--Select--</option>
+                            {% for class in classes %}
+                                <option value="{{ class.id }}" {% if student.class == class.name %}selected{% endif %}>{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sectionid" class="control-label">Section</label>
+                        <select name="sectionid" id="sectionid" class="form-control" required>
+                            <option value="">--Select--</option>
+                            {% for section in sections %}
+                                <option value="{{ section.section_id }}" {% if student.section == section.section %}selected{% endif %}>{{ section.section }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sname" class="control-label">Name*</label>
+                        <input type="text" class="form-control" id="sname" name="sname" value="{{ student.name }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="control-label">Mobile</label>
+                        <input type="number" class="form-control" id="mobile" name="mobile" value="{{ student.mobile }}" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="studentid" id="studentid" value="{{ student.id }}" />
+                    <input type="hidden" name="action" id="action" value="updateStudent" />
+                    <button type="submit" class="btn btn-info" name="save" id="save" data-dismiss="modal"><i title="Update Student Data" class="fa fa-pencil-square" aria-hidden="true"></i></button>
+                    <button type="" class="btn btn-danger" data-dismiss="modal"><i title="close this form" class="fa fa-window-close" aria-hidden="true"></i></button>
+                    
+                </div>
+            </div>
+        </form>
+        {% endfor %}
+    </div>
+{% endblock %}
