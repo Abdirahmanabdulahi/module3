@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Management{% endblock %}
+
+{% block content %}    	
+<div class="row">
+    <a href="#"><strong><span class="ti-crown"></span> Student Section  <i class="fa fa-graduation-cap" aria-hidden="true"></i></strong></a>
+    <hr>		
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-10">
+                <h3 class="panel-title"></h3>
+            </div>
+            <div class="col-md-2" align="right">
+                <!-- The data-target and data-toggle attributes ensure the modal is opened when the button is clicked -->
+                <button type="button" name="add" id="addStudent" class="btn btn-success btn-xs" data-toggle="modal" data-target="#studentModal" title="Student Admission"><i title="" class="fa fa-plus-square" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+    <table id="studentList" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Reg No</th>
+                <th>Roll No</th>	
+                <th>Name</th>
+                <th>Number</th>	
+                <th>Class</th>
+                <th>Section</th>
+                <th>Action</th>
+                							
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{student.id}}</td>
+                <td>{{student.admission_no}}</td>
+                <td>{{student.roll_no}}</td>
+                <td>{{student.name}}</td>
+                <td>{{student.mobile}}</td>						
+                <td>{{student.class}}</td>
+                <td>{{student.section}}</td>
+                <td><a href="{{url_for('edit_student', student_id=student.id)}}" class="btn btn-primary update"><i title="Update Student Infor..." class="fa fa-pencil-square" aria-hidden="true"></i></a>
+                  <a href="{{url_for('delete_student', student_id=student.id)}}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this records?')" title="Delete Student Infor...."><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+            </tr> 
+            {% endfor %}	  
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal HTML for both Add and Edit -->
+<div id="studentModal" class="modal fade">
+    <div class="modal-dialog">
+        <!-- The form action should point to your Flask route that handles student saving/updating -->
+        <form method="post" id="studentForm" enctype="multipart/form-data" action="{{ url_for('save_student')}}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Student Admission</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="studentid" class="control-label">Student ID</label>							
+                        <input type="number" class="form-control" id="studentid" name="studentid" value="{{ student_id }}" readonly>							
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="registerNo" class="control-label">Admission Number</label>							
+                        <input type="number" class="form-control" id="registerNo" name="registerNo" placeholder="Admission Number.." required>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="rollNo" class="control-label">Roll Number</label>							
+                        <input type="number" class="form-control" id="rollNo" name="rollNo" placeholder="Roll Number.." required>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="year" class="control-label">Academic Year*</label>	
+                        <select name="year" id="year" class="form-control" required>
+                            <option value="">Select Year</option>
+                            {% for year in range(2010, 2025) %}
+                            <option value="{{year}}">{{year}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="admission_date" class="control-label">Admission Date</label>							
+                        <input type="date" class="form-control" id="admission_date" name="admission_date" placeholder="mm/dd/yyyy" required>							
+                    </div>		
+                    <div class="form-group">
+                        <label for="classid" class="control-label">Class*</label>	
+                        <select name="classid" id="classid" class="form-control" required>
+                            <option value="">--Select--</option>
+                            {% for class in classes %}
+                                <option value="{{class.id}}">{{class.name}}</option>		
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sectionid" class="control-label">Section</label>	
+                        <select name="sectionid" id="sectionid" class="form-control" required>
+                            <option value="">--Select--</option>
+                            {% for section in sections %}
+                                <option value="{{section.section_id}}">{{section.section}}</option>		
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sname" class="control-label">Name*</label>
+                        <input type="text" class="form-control" id="sname" name="sname" placeholder="Student Name" required>				
+                    </div>	
+                    <div class="form-group">
+                        <label for="photo" class="control-label">Photo*</label>
+                        <input type="file" class="form-control" id="photo" name="photo" placeholder="Student photo" required>				
+                    </div>					
+                    <div class="form-group">
+                        <label for="gender" class="control-label">Gender</label>				
+                        <select class="form-control" id="gender" name="gender" required>
+                            <option value="">--Select--</option>							
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>							
+                        </select>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="dob" class="control-label">Date of Birth</label>							
+                        <input type="date" class="form-control" id="dob" name="dob" placeholder="mm/dd/yyyy" required>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="email" class="control-label">Email</label>							
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="mobile" class="control-label">Mobile</label>							
+                        <input type="number" class="form-control" id="mobile" name="mobile" placeholder="Mobile" required>							
+                    </div>		
+                    <div class="form-group">
+                        <label for="address" class="control-label">Address</label>							
+                        <textarea class="form-control" rows="2" id="address" name="address" placeholder="Address" required></textarea>							
+                    </div>
+                    <div class="form-group">
+                        <label for="fname" class="control-label">Father Name</label>							
+                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Father name..." required>							
+                    </div>	
+                    <div class="form-group">
+                        <label for="mname" class="control-label">Mother Name</label>							
+                        <input type="text" class="form-control" id="mname" name="mname" placeholder="Mother Name..." required>						
+                    </div>									
+                </div>
+                <div class="modal-footer">
+                    <!-- Hidden fields to manage whether it's an add or edit operation -->
+                    <input type="hidden" name="studentid" id="studentid" />
+                    <input type="hidden" name="action" id="action" value="addStudent" />
+                    <button type="submit" class="btn btn-info" name="save" id="save" data-dismiss="modal " value="save"><i title="save Data" class="fa fa-cloud" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal"><i title="class this form" class="fa fa-window-close" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
