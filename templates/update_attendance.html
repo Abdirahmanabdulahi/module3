@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Attendance{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Update Attendance</h3>
+            </div>
+            <form action="{{ url_for('update_attendance') }}" method="POST">
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="classid">Class</label>
+                                <select id="classid" name="classid" class="form-control" required>
+                                    <option value="">Select Class</option>
+                                    {% for class in classes %}
+                                    <option value="{{ class.id }}" {% if class.id == classId %} selected {% endif %}>{{ class.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="sectionid">Section</label>
+                                <select id="sectionid" name="sectionid" class="form-control" required>
+                                    <option value="">Select Section</option>
+                                    {% for section in sections %}
+                                    <option value="{{ section.section_id }}" {% if section.section_id == sectionId %} selected {% endif %}>{{ section.section }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Get Attendance Records</button>
+                </div>
+            </form>
+        </div>
+
+        {% if students %}
+        <form action="{{ url_for('save_updated_attendance') }}" method="POST">
+            <input type="hidden" name="classid" value="{{ classId }}">
+            <input type="hidden" name="sectionid" value="{{ sectionId }}">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Reg No</th>
+                        <th>Roll No</th>
+                        <th>Name</th>
+                        <th>Attendance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.admission_no }}</td>
+                        <td>{{ student.roll_no }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>
+                            <label>
+                                <input type="radio" name="attendance_{{ student.id }}" value="Present" {% if student.attendance_status == 'Present' %} checked {% endif %}> Present
+                            </label>
+                            <label>
+                                <input type="radio" name="attendance_{{ student.id }}" value="Absent" {% if student.attendance_status == 'Absent' %} checked {% endif %}> Absent
+                            </label>
+                            <label>
+                                <input type="radio" name="attendance_{{ student.id }}" value="Late" {% if student.attendance_status == 'Late' %} checked {% endif %}> Late
+                            </label>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
