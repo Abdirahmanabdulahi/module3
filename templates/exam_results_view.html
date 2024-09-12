@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %}Result Management{% endblock %}
+
+{% block content %}
+<div class="row">
+    <a href="#"><strong><span class="ti-calendar"></span> Result Section</strong></a>
+    <hr>
+   
+    <table id="examList" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Class ID</th>
+                <th>Section ID</th>
+                <th>Exam ID</th>
+                <th>Subject ID</th>
+                <th>Exam Name</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+            <tr>
+                <td>{{ result.id }}</td>
+                <td>{{ result.student_id }}</td>
+                <td>{{ result.class_id }}</td>
+                <td>{{ result.section_id }}</td>
+                <td>{{ result.exam_id }}</td>
+                <td>{{ result.subject_id }}</td>
+                <td>{{ result.exam_name }}</td>
+                <td>{{ result.marks }}</td>
+                <td>{{ result.grade }}</td>
+                <td>
+                    {% if result.status == 'Pass' %}
+                        <span class="btn btn-success ">{{ result.status }}</span>
+                    {% else %}
+                        <span class="btn btn-danger">{{ result.status }}</span>
+                    {% endif %}
+                </td>
+                
+
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div id="examModal" class="modal fade">
+    <div class="modal-dialog">
+        <form method="post" id="examForm" action="{{ url_for('save_result') }}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><i class="fa fa-plus"></i> Add/Edit Exam</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exam_name" class="control-label">Exam Name*</label>
+                        <input type="text" class="form-control" id="exam_name" name="exam_name" placeholder="Exam Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="class_id" class="control-label">Class*</label>
+                        <select name="class_id" id="class_id" class="form-control" required>
+                            <option value="">Select Class</option>
+                            {% for class in classes %}
+                            <option value="{{ class.id }}">{{ class.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject_id" class="control-label">Subject*</label>
+                        <select name="subject_id" id="subject_id" class="form-control" required>
+                            <option value="">Select Subject</option>
+                            {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{ subject.subject }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="exam_id" id="exam_id" />
+                    <input type="hidden" name="action" id="action" value="" />
+                    <button type="submit" class="btn btn-info" name="save" id="save" data-dismiss="modal"><i title="Update Exam_Result" class="fa fa-pencil-square" aria-hidden="true"></i></button>
+                    <button type="submit" class="btn btn-danger" data-dismiss="modal"><i title="Close This Form" class="fa fa-window-close" aria-hidden="true"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
