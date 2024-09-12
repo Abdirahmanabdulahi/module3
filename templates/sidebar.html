@@ -1,0 +1,92 @@
+<div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading text-white mt-5">STUDENT MANAGE SYSTEM 
+        <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+    </div>
+
+    <div class="list-group list-group-flush">
+        <a href="{{ url_for('dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-tachometer" aria-hidden="true"></i>
+            Dashboard
+        </a>
+
+         <!-- Show the following sections only if the user is an Admin -->
+          <!-- Only Admin sees the Settings -->
+        {% if session['User_Type'] == 'Admin' %}
+        
+         <a href="/student" class="list-group-item list-group-item-action bg-dark text-white">
+             <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+             Students
+         </a>
+         <a href="/classes" class="list-group-item list-group-item-action bg-dark text-white">
+             <i class="fa fa-university" aria-hidden="true"></i>
+             Classes
+         </a>
+         <a href="sections" class="list-group-item list-group-item-action bg-dark text-white">
+             <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+             Sections
+         </a>
+         <a href="teacher" class="list-group-item list-group-item-action bg-dark text-white">
+             <i class="fa fa-male" aria-hidden="true"></i>
+             Teachers
+         </a>
+         <a href="subject" class="list-group-item list-group-item-action bg-dark text-white">
+             <i class="fa fa-book bt btn-primary" aria-hidden="true"></i>
+             Subjects
+         </a>
+
+         <a href="exams" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+            Create Exams
+        </a>
+        <a href="exam_results" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-street-view" aria-hidden="true"></i>
+            View Exam Result & Edit
+        </a>
+
+         <a href="update_attendance" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            update_attendance
+        </a>
+         {% endif %}
+         
+
+     
+
+        <!-- The following options are visible to Admin and Teacher -->
+        {% if session['User_Type'] == 'Admin' or session['User_Type'] == 'Teacher'  %}
+        
+        <a href="attendance_new" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            New Attendance 
+        </a>
+        
+        <a href="add_result" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-book bt btn-primary" aria-hidden="true"></i>
+            Add Exam Result 
+        </a>
+        
+        {% endif %}
+
+
+
+
+
+
+
+        <!-- Common options visible to everyone (Admin, Teacher, and Student) -->
+
+        <a href="exam_results_view" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            View Exam Results
+        </a>
+        <a href="view_attendance" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-book" aria-hidden="true"></i>
+            View Attendance
+        </a>
+          
+        <a href="logout" class="list-group-item list-group-item-action bg-dark text-white">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            LogOut
+        </a>
+    </div>
+</div>
